@@ -6,3 +6,4 @@ build/
 out/
 *.jar
 *.iml
+.env
