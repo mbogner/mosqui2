@@ -1,0 +1,8 @@
+.kotlin/
+.gradle/
+.idea/
+.vscode/
+build/
+out/
+*.jar
+*.iml

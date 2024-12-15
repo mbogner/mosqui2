@@ -1,0 +1,17 @@
+logging:
+  level:
+    root: INFO
+    dev.mbo: TRACE
+    org.springframework.integration: INFO
+    org.springframework.mqtt: INFO
+
+spring:
+  application:
+    name: mosqui2
+  main:
+    banner-mode: off
+
+mqtt:
+  broker-urls:
+    - tcp://localhost:1883
+  client-id: mosqui2-server1

@@ -1,0 +1,12 @@
+services:
+  mosquito:
+    image: mbopm/mosquito:2
+    hostname: mosquito1
+    container_name: mosquito1
+    ports:
+      - "127.0.0.1:1883:1883"
+    volumes:
+      - mosquito_data:/mosquitto/data:rw
+
+volumes:
+  mosquito_data:
