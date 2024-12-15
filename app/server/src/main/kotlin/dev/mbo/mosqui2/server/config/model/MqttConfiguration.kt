@@ -1,4 +1,4 @@
-package dev.mbo.mosqui2.server.config
+package dev.mbo.mosqui2.server.config.model
 
 import dev.mbo.logging.logger
 import jakarta.annotation.PostConstruct

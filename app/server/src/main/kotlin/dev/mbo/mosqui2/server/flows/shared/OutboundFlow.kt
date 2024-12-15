@@ -1,4 +1,4 @@
-package dev.mbo.mosqui2.server.flows
+package dev.mbo.mosqui2.server.flows.shared
 
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
@@ -13,7 +13,7 @@ import org.springframework.messaging.MessageChannel
 class OutboundFlow {
 
     @Bean
-    @Qualifier("outChannel")
+    @Qualifier(TopicsAndChannels.OUT_CHANNEL)
     fun outChannel(): MessageChannel {
         return DirectChannel()
     }
@@ -21,10 +21,10 @@ class OutboundFlow {
     @Bean
     fun mqttOutFlow(
         mqttClientManager: Mqttv5ClientManager,
-        @Qualifier("outChannel") outChannel: MessageChannel
+        @Qualifier(TopicsAndChannels.OUT_CHANNEL) outChannel: MessageChannel
     ): IntegrationFlow {
         return IntegrationFlow.from(outChannel)
-            .handle(Mqttv5PahoMessageHandler(mqttClientManager))
+            .handle(Mqttv5PahoMessageHandler(mqttClientManager)) // we could set default topic - without gives exc
             .get()
     }
 }

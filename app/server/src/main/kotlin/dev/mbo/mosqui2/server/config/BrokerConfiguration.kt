@@ -1,5 +1,6 @@
 package dev.mbo.mosqui2.server.config
 
+import dev.mbo.mosqui2.server.config.model.MqttConfiguration
 import org.eclipse.paho.mqttv5.client.MqttConnectionOptionsBuilder
 import org.eclipse.paho.mqttv5.client.persist.MemoryPersistence
 import org.springframework.context.annotation.Bean

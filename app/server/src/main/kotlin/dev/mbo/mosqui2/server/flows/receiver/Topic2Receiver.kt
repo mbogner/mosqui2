@@ -1,6 +1,7 @@
-package dev.mbo.mosqui2.server.flows
+package dev.mbo.mosqui2.server.flows.receiver
 
 import dev.mbo.logging.logger
+import dev.mbo.mosqui2.server.flows.shared.TopicsAndChannels
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -16,7 +17,7 @@ class Topic2Receiver {
     private val log = logger()
 
     @Bean
-    @Qualifier("topic2Channel")
+    @Qualifier(TopicsAndChannels.TOPIC2_CHANNEL)
     fun topic2Channel(): MessageChannel {
         return DirectChannel()
     }
@@ -24,17 +25,17 @@ class Topic2Receiver {
     @Bean
     fun topic2InboundFlow(
         mqttClientManager: Mqttv5ClientManager,
-        @Qualifier("topic2Channel") topic2Channel: MessageChannel
+        @Qualifier(TopicsAndChannels.TOPIC2_CHANNEL) topic2Channel: MessageChannel
     ): IntegrationFlow {
         return IntegrationFlow.from(
-            Mqttv5PahoMessageDrivenChannelAdapter(mqttClientManager, "topic2").apply {
+            Mqttv5PahoMessageDrivenChannelAdapter(mqttClientManager, TopicsAndChannels.TOPIC2).apply {
                 outputChannel = topic2Channel
             }
         ).get()
     }
 
     @Bean
-    fun topic2Processor(@Qualifier("topic2Channel") topic2Channel: MessageChannel): IntegrationFlow {
+    fun topic2Processor(@Qualifier(TopicsAndChannels.TOPIC2_CHANNEL) topic2Channel: MessageChannel): IntegrationFlow {
         return IntegrationFlow.from(topic2Channel)
             .handle { payload: ByteArray, _ ->
                 log.info("Received message from MQTT topic2: {}", String(payload))
